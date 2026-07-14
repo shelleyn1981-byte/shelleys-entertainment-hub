@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#120f1f">
+  <title>Shelley's Entertainment Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home">Shelley's Entertainment Hub</a>
+  <nav>
+    <a href="#tonight">Tonight</a>
+    <a href="#week">This Week</a>
+    <a href="#shows">My Shows</a>
+    <a href="#recommendations">Recommendations</a>
+  </nav>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">YOUR PERSONAL STREAMING GUIDE</p>
+      <h1 id="greeting">Good evening, Shelley</h1>
+      <p class="hero-copy">New episodes, returning favorites, and hand-picked recommendations across your streaming services.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#tonight">See tonight</a>
+        <a class="button secondary" href="#week">View this week</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <span class="mini-label">Data status</span>
+      <strong id="lastUpdated">Loading…</strong>
+      <span class="muted">Central Time</span>
+    </div>
+  </section>
+
+  <section id="tonight" class="section">
+    <div class="section-heading">
+      <div><p class="eyebrow">WHAT'S NEW</p><h2>Tonight</h2></div>
+      <span id="tonightCount" class="count-pill"></span>
+    </div>
+    <div id="tonightGrid" class="card-grid"></div>
+  </section>
+
+  <section id="week" class="section">
+    <div class="section-heading">
+      <div><p class="eyebrow">PLAN AHEAD</p><h2>Coming this week</h2></div>
+    </div>
+    <div id="weekList" class="schedule-list"></div>
+  </section>
+
+  <section id="shows" class="section">
+    <div class="section-heading">
+      <div><p class="eyebrow">YOUR FAVORITES</p><h2>My shows</h2></div>
+      <div id="serviceFilters" class="filters"></div>
+    </div>
+    <div id="showsGrid" class="poster-grid"></div>
+  </section>
+
+  <section id="recommendations" class="section">
+    <div class="section-heading">
+      <div><p class="eyebrow">SHELLEY MATCH</p><h2>Recommended for you</h2></div>
+    </div>
+    <div id="recommendationGrid" class="poster-grid"></div>
+  </section>
+</main>
+
+<footer>
+  <p>Built for Shelley • Netflix • Peacock • Paramount+ • Max • Hulu • Disney+ • Prime Video</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
