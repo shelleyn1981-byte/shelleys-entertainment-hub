@@ -3,78 +3,140 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#120f1f">
+  <meta name="theme-color" content="#0d0916">
   <title>Shelley's Entertainment Hub</title>
+  <meta name="description" content="Shelley's personal streaming guide">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="#home">Shelley's Entertainment Hub</a>
-  <nav>
-    <a href="#tonight">Tonight</a>
-    <a href="#week">This Week</a>
-    <a href="#shows">My Shows</a>
-    <a href="#recommendations">Recommendations</a>
-  </nav>
-</header>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-<main id="home">
-  <section class="hero">
-    <div>
-      <p class="eyebrow">YOUR PERSONAL STREAMING GUIDE</p>
-      <h1 id="greeting">Good evening, Shelley</h1>
-      <p class="hero-copy">New episodes, returning favorites, and hand-picked recommendations across your streaming services.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="#tonight">See tonight</a>
-        <a class="button secondary" href="#week">View this week</a>
+  <header class="topbar">
+    <a class="brand" href="#home">
+      <span class="brand-mark">S</span>
+      <span>Shelley's Entertainment Hub</span>
+    </a>
+    <nav>
+      <a href="#tonight">Tonight</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#shows">My Shows</a>
+      <a href="#recommendations">Recommendations</a>
+      <button id="syncButton" class="sync-button" type="button">Refresh</button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section id="spotlight" class="hero"></section>
+
+    <section class="quick-stats" aria-label="Guide summary">
+      <article><strong id="statTonight">0</strong><span>New tonight</span></article>
+      <article><strong id="statWeek">0</strong><span>This week</span></article>
+      <article><strong id="statTracked">0</strong><span>Tracked shows</span></article>
+      <article><strong id="statServices">0</strong><span>Services</span></article>
+    </section>
+
+    <section id="tonight" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">WHAT'S NEW</p>
+          <h2>Tonight</h2>
+        </div>
+        <span id="tonightCount" class="count-pill"></span>
       </div>
-    </div>
-    <div class="hero-panel">
-      <span class="mini-label">Data status</span>
-      <strong id="lastUpdated">Loading…</strong>
-      <span class="muted">Central Time</span>
-    </div>
-  </section>
+      <div id="tonightGrid" class="card-grid"></div>
+    </section>
 
-  <section id="tonight" class="section">
-    <div class="section-heading">
-      <div><p class="eyebrow">WHAT'S NEW</p><h2>Tonight</h2></div>
-      <span id="tonightCount" class="count-pill"></span>
-    </div>
-    <div id="tonightGrid" class="card-grid"></div>
-  </section>
+    <section id="calendar" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PLAN AHEAD</p>
+          <h2>Interactive calendar</h2>
+        </div>
+        <div class="calendar-controls">
+          <button id="prevMonth" class="icon-button" type="button" aria-label="Previous month">‹</button>
+          <strong id="calendarTitle"></strong>
+          <button id="nextMonth" class="icon-button" type="button" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div class="calendar-shell">
+        <div class="calendar-weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </div>
+      <div id="dayAgenda" class="day-agenda"></div>
+    </section>
 
-  <section id="week" class="section">
-    <div class="section-heading">
-      <div><p class="eyebrow">PLAN AHEAD</p><h2>Coming this week</h2></div>
-    </div>
-    <div id="weekList" class="schedule-list"></div>
-  </section>
+    <section id="week" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">NEXT 7 DAYS</p>
+          <h2>Coming this week</h2>
+        </div>
+      </div>
+      <div id="weekList" class="schedule-list"></div>
+    </section>
 
-  <section id="shows" class="section">
-    <div class="section-heading">
-      <div><p class="eyebrow">YOUR FAVORITES</p><h2>My shows</h2></div>
-      <div id="serviceFilters" class="filters"></div>
-    </div>
-    <div id="showsGrid" class="poster-grid"></div>
-  </section>
+    <section id="shows" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">YOUR FAVORITES</p>
+          <h2>My shows</h2>
+        </div>
+        <div id="serviceFilters" class="filters"></div>
+      </div>
+      <div id="showsGrid" class="poster-grid"></div>
+    </section>
 
-  <section id="recommendations" class="section">
-    <div class="section-heading">
-      <div><p class="eyebrow">SHELLEY MATCH</p><h2>Recommended for you</h2></div>
-    </div>
-    <div id="recommendationGrid" class="poster-grid"></div>
-  </section>
-</main>
+    <section id="continue" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p>
+          <h2>Continue watching</h2>
+        </div>
+      </div>
+      <div id="continueGrid" class="poster-grid"></div>
+    </section>
 
-<footer>
-  <p>Built for Shelley • Netflix • Peacock • Paramount+ • Max • Hulu • Disney+ • Prime Video</p>
-</footer>
+    <section id="recommendations" class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SHELLEY MATCH</p>
+          <h2>Recommended for you</h2>
+        </div>
+      </div>
+      <div id="recommendationGrid" class="poster-grid"></div>
+    </section>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+    <section id="seasonal" class="section">
+      <div class="seasonal-banner">
+        <div>
+          <p class="eyebrow">SEASONAL WATCHLIST</p>
+          <h2 id="seasonalTitle">Summer nights</h2>
+          <p id="seasonalCopy">A rotating collection for the season.</p>
+        </div>
+        <button id="seasonalButton" class="button primary" type="button">Show seasonal picks</button>
+      </div>
+      <div id="seasonalGrid" class="poster-grid hidden"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for Shelley • Netflix • Peacock • Paramount+ • Max • Hulu • Disney+ • Prime Video</p>
+    <p id="dataStatus" class="muted"></p>
+  </footer>
+
+  <dialog id="showDialog" class="show-dialog">
+    <button id="closeDialog" class="dialog-close" type="button" aria-label="Close">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="fallback-data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
