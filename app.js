@@ -178,9 +178,49 @@ function renderCalendar(){
   }
   renderDayAgenda();
 }
-function renderDayAgenda(){
-  const items=selectedDate?episodesForDate(selectedDate):[];
-  qs("#dayAgenda").innerHTML=selectedDate?`<h3>${fmtDate(selectedDate)}</h3>${items.length?items.map(e=>`<article class="schedule-row" data-open-show="${escapeHTML(e.show)}"><div class="schedule-time">${escapeHTML(e.time||"Anytime")}</div><div><strong>${escapeHTML(e.show)}</strong><div class="muted">${escapeHTML(e.episode||"New Episode")} • ${escapeHTML(e.service||"")}</div></div><span class="badge">${escapeHTML(e.status||"New")}</span></article>`).join(""):`<div class="empty">No new episodes scheduled for this day.</div>`:"";
+function renderDayAgenda() {
+  const items = selectedDate
+    ? episodesForDate(selectedDate)
+    : [];
+
+  if (!selectedDate) {
+    qs("#dayAgenda").innerHTML = "";
+    return;
+  }
+
+  const agendaItems = items.length
+    ? items.map(e => `
+        <article
+          class="schedule-row"
+          data-open-show="${escapeHTML(e.show)}"
+        >
+          <div class="schedule-time">
+            ${escapeHTML(e.time || "Anytime")}
+          </div>
+
+          <div>
+            <strong>${escapeHTML(e.show)}</strong>
+
+            <div class="muted">
+              ${escapeHTML(e.episode || "New Episode")}
+              •
+              ${escapeHTML(e.service || "")}
+            </div>
+          </div>
+
+          <span class="badge">
+            ${escapeHTML(e.status || "New")}
+          </span>
+        </article>
+      `).join("")
+    : `<div class="empty">
+         No new episodes scheduled for this day.
+       </div>`;
+
+  qs("#dayAgenda").innerHTML = `
+    <h3>${fmtDate(selectedDate)}</h3>
+    ${agendaItems}
+  `;
 }
 
 function openDialog(title){
