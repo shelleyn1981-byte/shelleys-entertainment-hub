@@ -159,23 +159,87 @@ function renderStats(){
 }
 
 function episodesForDate(key){return DATA.episodes.filter(e=>e.date===key).sort((a,b)=>(a.time||"").localeCompare(b.time||""))}
-function renderCalendar(){
-  qs("#calendarTitle").textContent=fmtMonth(calendarCursor);
-  const first=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1);
-  const start=new Date(first);start.setDate(start.getDate()-first.getDay());
-  const days=[];
-  for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);days.push(d)}
-  qs("#calendarGrid").innerHTML=days.map(d=>{
-    const key=dateKey(d),items=episodesForDate(key),muted=d.getMonth()!==calendarCursor.getMonth();
-    return `<button class="calendar-day ${muted?"muted-day":""} ${selectedDate===key?"selected":""}" data-date="${key}" type="button">
-      <span class="calendar-number">${d.getDate()}</span>
-      ${items.length?`<span class="calendar-dot"></span><span class="calendar-count">${items.length} new</span>`:""}
-    </button>`;
-  }).join("");
-  if(!selectedDate){
-    const today=getTodayKey();
-    if(today.startsWith(`${calendarCursor.getFullYear()}-${pad(calendarCursor.getMonth()+1)}`))selectedDate=today;
+function renderCalendar() {
+  qs("#calendarTitle").textContent = fmtMonth(calendarCursor);
+
+  const first = new Date(
+    calendarCursor.getFullYear(),
+    calendarCursor.getMonth(),
+    1
+  );
+
+  const start = new Date(first);
+  start.setDate(start.getDate() - first.getDay());
+
+  const days = [];
+
+  for (let i = 0; i < 42; i++) {
+    const day = new Date(start);
+    day.setDate(start.getDate() + i);
+    days.push(day);
   }
+
+  qs("#calendarGrid").innerHTML = days.map(day => {
+    const key = dateKey(day);
+    const items = episodesForDate(key);
+
+    const isOtherMonth =
+      day.getMonth() !== calendarCursor.getMonth();
+
+    const visibleShows = items
+      .slice(0, 2)
+      .map(item => `
+        <span class="calendar-show">
+          ${escapeHTML(item.show)}
+        </span>
+      `)
+      .join("");
+
+    const additionalCount =
+      items.length > 2
+        ? `<span class="calendar-more">
+             +${items.length - 2} more
+           </span>`
+        : "";
+
+    return `
+      <button
+        class="calendar-day
+          ${isOtherMonth ? "muted-day" : ""}
+          ${selectedDate === key ? "selected" : ""}"
+        data-date="${key}"
+        type="button"
+      >
+        <span class="calendar-number">
+          ${day.getDate()}
+        </span>
+
+        ${
+          items.length
+            ? `
+              <div class="calendar-shows">
+                ${visibleShows}
+                ${additionalCount}
+              </div>
+            `
+            : ""
+        }
+      </button>
+    `;
+  }).join("");
+
+  if (!selectedDate) {
+    const today = getTodayKey();
+
+    const displayedMonth =
+      `${calendarCursor.getFullYear()}-` +
+      `${pad(calendarCursor.getMonth() + 1)}`;
+
+    if (today.startsWith(displayedMonth)) {
+      selectedDate = today;
+    }
+  }
+
   renderDayAgenda();
 }
 function renderDayAgenda() {

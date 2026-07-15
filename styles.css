@@ -137,6 +137,31 @@ main{width:min(1200px,calc(100% - 34px));margin:auto}
 .calendar-count{font-size:.72rem;color:var(--muted);position:absolute;bottom:7px;left:9px}
 .day-agenda{margin-top:14px;display:grid;gap:10px}
 .day-agenda h3{margin:8px 0}
+.calendar-shows {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.calendar-show {
+  display: block;
+  overflow: hidden;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(140, 108, 255, 0.14);
+  color: #eee9ff;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-more {
+  color: var(--gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
 .seasonal-banner{
   padding:30px;border-radius:26px;border:1px solid var(--border);
   background:linear-gradient(120deg,rgba(140,108,255,.14),rgba(216,176,95,.12));
